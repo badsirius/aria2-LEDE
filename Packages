@@ -1,0 +1,11 @@
+Package: aria2-torrent
+Version: 1.31.0-1
+Depends: 
+License: 
+Section: network
+Architecture: arm_cortex-a9_vfpv3
+Installed-Size: 2344253
+Filename: aria2_1.31.0-1_arm_cortex-a9_vfpv3.ipk
+Size: 876235
+SHA256sum: f719ca1add5b9d8be15e20b4d344b2ee9a699da510e88b8030d6eb1f39e51656
+Description:  aria2 downloader manager for LEDE with torrent and metalink supported.
