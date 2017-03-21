@@ -1,6 +1,8 @@
 
 支持 torrent 的 aria2
 
+源文件从 https://git.lede-project.org/feed/packages.git 中拷贝出来，修改了默认设置
+
 ## 使用自定义仓库安装
 
 ```
