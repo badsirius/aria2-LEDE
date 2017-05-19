@@ -7,15 +7,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aria2
-PKG_VERSION:=1.31.0
+PKG_VERSION:=1.32.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/aria2/aria2/releases/download/release-$(PKG_VERSION)/
-PKG_HASH:=7b85619048b23406f241e38a5b1b8b0bc2cae9e80fd117810c2a71ecca813f8c
+PKG_HASH:=546e9194a9135d665fce572cb93c88f30fb5601d113bfa19951107ced682dc50
 PKG_INSTALL:=1
 
-PKG_MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>, Hsing-Wang Liao <kuoruan@gmail.com>
+PKG_BUILD_PARALLEL:=1
+PKG_MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>, Hsing-Wang Liao <kuoruan@gmail.com>, John <imgk@mail.ustc.edu.cn>
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=COPYING
 
@@ -43,12 +44,11 @@ define Package/aria2
   SUBMENU:=File Transfer & Torrent
   TITLE:=lightweight download utility
   URL:=https://aria2.github.io/
-  DEPENDS:=+zlib +libstdcpp +ARIA2_SFTP:libssh2 +ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3 +ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls
+  DEPENDS:=+zlib +libstdcpp +libnettle +libgmp +libgcrypt +libuv +ARIA2_SFTP:libssh2 +ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3 +ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls
 endef
 
 define Package/aria2/description
- aria2 is a lightweight multi-protocol & multi-source command-line download
- utility
+ aria2 is a lightweight multi-protocol & multi-source command-line download utility
 endef
 
 CONFIGURE_ARGS += \
@@ -63,10 +63,10 @@ CONFIGURE_ARGS += \
 	$(if $(CONFIG_ARIA2_COOKIE),--with,--without)-sqlite3 \
 	$(if $(CONFIG_ARIA2_LIBXML2),--with,--without)-libxml2 \
 	$(if $(CONFIG_ARIA2_EXPAT),--with,--without)-libexpat \
-	--without-libnettle \
-	--without-libgmp \
-	--without-libgcrypt \
-	--without-libuv \
+	--with-libnettle \
+	--with-libgmp \
+	--with-libgcrypt \
+	--with-libuv \
 	--with-libz
 
 define Package/aria2/install
@@ -81,3 +81,4 @@ define Package/aria2/install
 endef
 
 $(eval $(call BuildPackage,aria2))
+
