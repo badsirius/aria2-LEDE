@@ -67,9 +67,7 @@ CONFIGURE_ARGS += \
 	--without-libgmp \
 	--without-libgcrypt \
 	--with-libuv \
-	--with-libz \
-	--with-tcmalloc \
-	--with-jemalloc
+	--with-libz 
 
 define Package/aria2/install
 	$(INSTALL_DIR) $(1)/usr/bin
