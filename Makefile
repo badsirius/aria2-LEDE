@@ -44,7 +44,7 @@ define Package/aria2
   SUBMENU:=File Transfer & Torrent
   TITLE:=lightweight download utility
   URL:=https://aria2.github.io/
-  DEPENDS:=+zlib +libstdcpp +libnettle +libgmp +libgcrypt +libuv +ARIA2_SFTP:libssh2 +ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3 +ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls
+  DEPENDS:=+zlib +libstdcpp +libuv +ARIA2_SFTP:libssh2 +ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3 +ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls
 endef
 
 define Package/aria2/description
@@ -63,11 +63,13 @@ CONFIGURE_ARGS += \
 	$(if $(CONFIG_ARIA2_COOKIE),--with,--without)-sqlite3 \
 	$(if $(CONFIG_ARIA2_LIBXML2),--with,--without)-libxml2 \
 	$(if $(CONFIG_ARIA2_EXPAT),--with,--without)-libexpat \
-	--with-libnettle \
-	--with-libgmp \
-	--with-libgcrypt \
+	--without-libnettle \
+	--without-libgmp \
+	--without-libgcrypt \
 	--with-libuv \
-	--with-libz
+	--with-libz \
+	--with-tcmalloc \
+	--with-jemalloc
 
 define Package/aria2/install
 	$(INSTALL_DIR) $(1)/usr/bin
